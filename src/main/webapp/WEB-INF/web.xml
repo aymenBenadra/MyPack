@@ -12,4 +12,51 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
+
+    <filter>
+        <filter-name>Guest Filter</filter-name>
+        <filter-class>ma.youcode.mypack.filters.GuestFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>Guest Filter</filter-name>
+        <url-pattern>/register</url-pattern>
+        <url-pattern>/login</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>Authentication Filter</filter-name>
+        <filter-class>ma.youcode.mypack.filters.AuthenticationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>Authentication Filter</filter-name>
+        <url-pattern>/logout</url-pattern>
+        <url-pattern>/admin/*</url-pattern>
+        <url-pattern>/manager/*</url-pattern>
+        <url-pattern>/client/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>Authorization Filter</filter-name>
+        <filter-class>ma.youcode.mypack.filters.AuthorizationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>Authorization Filter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+        <url-pattern>/manager/*</url-pattern>
+        <url-pattern>/client/*</url-pattern>
+    </filter-mapping>
+
+    <welcome-file-list>
+        <welcome-file>index.xhtml</welcome-file>
+    </welcome-file-list>
+
+    <context-param>
+        <param-name>org.omnifaces.FACES_VIEWS_SCAN_PATHS</param-name>
+        <param-value>/*.xhtml/*</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
 </web-app>
