@@ -1,5 +1,6 @@
 package ma.youcode.mypack.daos;
 
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import ma.youcode.mypack.daos.abstracts.BaseDAO;
 import ma.youcode.mypack.daos.interfaces.IProduitDAO;
@@ -8,6 +9,7 @@ import ma.youcode.mypack.helpers.PersistenceManager;
 
 import java.util.List;
 
+@RequestScoped
 public class ProduitDAO extends BaseDAO<ProduitEntity> implements IProduitDAO {
 
     public ProduitDAO() {
@@ -15,27 +17,11 @@ public class ProduitDAO extends BaseDAO<ProduitEntity> implements IProduitDAO {
     }
 
     @Override
-    public ProduitEntity findByNom(String nom) {
+    public List<ProduitEntity> findAllByClient(Long clientId) {
         EntityManager em = PersistenceManager.beginTransaction();
         try {
-            ProduitEntity produit = em.createQuery("SELECT p FROM Produit p WHERE p.nom = :nom", ProduitEntity.class)
-                    .setParameter("nom", nom)
-                    .getSingleResult();
-            PersistenceManager.commitTransaction(em);
-            return produit;
-        } catch (Exception e) {
-            e.printStackTrace();
-            PersistenceManager.rollbackTransaction(em);
-            return null;
-        }
-    }
-
-    @Override
-    public List<ProduitEntity> findByFragile(boolean fragile) {
-        EntityManager em = PersistenceManager.beginTransaction();
-        try {
-            List<ProduitEntity> produits = em.createQuery("SELECT p FROM Produit p WHERE p.fragile = :fragile", ProduitEntity.class)
-                    .setParameter("fragile", fragile)
+            List<ProduitEntity> produits = em.createQuery("SELECT p FROM Produit p WHERE p.client.id = :clientId", ProduitEntity.class)
+                    .setParameter("clientId", clientId)
                     .getResultList();
             PersistenceManager.commitTransaction(em);
             return produits;

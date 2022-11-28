@@ -5,6 +5,5 @@ import ma.youcode.mypack.entities.ProduitEntity;
 import java.util.List;
 
 public interface IProduitDAO extends IBaseDAO<ProduitEntity> {
-    ProduitEntity findByNom(String nom);
-    List<ProduitEntity> findByFragile(boolean fragile);
+    List<ProduitEntity> findAllByClient(Long clientId);
 }

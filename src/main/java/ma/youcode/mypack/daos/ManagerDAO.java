@@ -1,11 +1,13 @@
 package ma.youcode.mypack.daos;
 
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import ma.youcode.mypack.daos.abstracts.PersonDAO;
 import ma.youcode.mypack.daos.interfaces.IManagerDAO;
 import ma.youcode.mypack.entities.ManagerEntity;
 import ma.youcode.mypack.helpers.PersistenceManager;
 
+@RequestScoped
 public class ManagerDAO extends PersonDAO<ManagerEntity> implements IManagerDAO {
     public ManagerDAO() {
         super(ManagerEntity.class);

@@ -1,5 +1,6 @@
 package ma.youcode.mypack.daos;
 
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import ma.youcode.mypack.daos.abstracts.BaseDAO;
 import ma.youcode.mypack.daos.interfaces.ITransactionDAO;
@@ -8,6 +9,7 @@ import ma.youcode.mypack.helpers.PersistenceManager;
 
 import java.util.List;
 
+@RequestScoped
 public class TransactionDAO extends BaseDAO<TransactionEntity> implements ITransactionDAO {
     public TransactionDAO() {
         super(TransactionEntity.class);
