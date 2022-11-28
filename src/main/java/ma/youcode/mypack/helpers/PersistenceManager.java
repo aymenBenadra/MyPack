@@ -1,4 +1,4 @@
-package ma.youcode.mypack.helper;
+package ma.youcode.mypack.helpers;
 
 import com.google.common.base.Preconditions;
 import io.github.cdimascio.dotenv.Dotenv;
