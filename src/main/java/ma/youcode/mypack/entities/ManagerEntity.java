@@ -6,6 +6,7 @@ import ma.youcode.mypack.entities.abstracts.Person;
 @Entity(name = "Manager")
 @Table(name = "manager", schema = "mypack")
 public class ManagerEntity extends Person {
+    @Column(unique = true)
     private String ville;
 
     public String getVille() {
