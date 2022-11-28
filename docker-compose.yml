@@ -1,0 +1,55 @@
+services:
+  devenv:
+    image: aymenbenadra/java-dev-env
+    container_name: devenv
+    volumes:
+      - workspace:/home/remote/workspace
+      - deployment_target:/home/remote/workspace/target
+    ports:
+      - 23:22
+    restart: unless-stopped
+    tty: true
+    stdin_open: true
+  deployment:
+    image: quay.io/wildfly/wildfly
+    container_name: deployment
+    command:
+      - /bin/bash
+      - -c
+      - |
+        /opt/jboss/wildfly/bin/add-user.sh admin admin --silent
+        /opt/jboss/wildfly/bin/standalone.sh -b 0.0.0.0 -bmanagement 0.0.0.0
+    volumes:
+      - deployment_target:/opt/jboss/wildfly/standalone/deployments/
+    ports:
+      - 8080:8080
+      - 9990:9990
+    depends_on:
+      - devenv
+      - db
+    restart: unless-stopped
+  db:
+    image: mysql:latest
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mypack
+    ports:
+      - 3307:3306
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: unless-stopped
+  pma:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    environment:
+      PMA_HOST: db
+    ports:
+      - 8081:80
+    depends_on:
+      - db
+    restart: unless-stopped
+volumes:
+  db_data:
+  workspace:
+  deployment_target:
