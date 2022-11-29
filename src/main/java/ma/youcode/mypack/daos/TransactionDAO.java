@@ -7,10 +7,11 @@ import ma.youcode.mypack.daos.interfaces.ITransactionDAO;
 import ma.youcode.mypack.entities.TransactionEntity;
 import ma.youcode.mypack.helpers.PersistenceManager;
 
+import java.io.Serializable;
 import java.util.List;
 
 @RequestScoped
-public class TransactionDAO extends BaseDAO<TransactionEntity> implements ITransactionDAO {
+public class TransactionDAO extends BaseDAO<TransactionEntity> implements ITransactionDAO, Serializable {
     public TransactionDAO() {
         super(TransactionEntity.class);
     }

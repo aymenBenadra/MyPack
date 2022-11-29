@@ -7,10 +7,11 @@ import ma.youcode.mypack.daos.interfaces.IProduitDAO;
 import ma.youcode.mypack.entities.ProduitEntity;
 import ma.youcode.mypack.helpers.PersistenceManager;
 
+import java.io.Serializable;
 import java.util.List;
 
 @RequestScoped
-public class ProduitDAO extends BaseDAO<ProduitEntity> implements IProduitDAO {
+public class ProduitDAO extends BaseDAO<ProduitEntity> implements IProduitDAO, Serializable {
 
     public ProduitDAO() {
         super(ProduitEntity.class);
